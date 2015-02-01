@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Dojo & Openlayers 1",
+        "recipes": [
+            {"name": "test1", "url": "ex3.html"},
+			{"name": "test2", "url": "ex4.html"}
+        ]
+    },
+    {
+        "name": "Dojo 2 (?)",
+        "recipes": [      
+        ]
+    }
+]

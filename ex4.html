@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+	<head>
+	<script type="text/javascript" src="../../js/OpenLayers-2.12/OpenLayers.js"></script>
+    <style type='text/css'>
+		html, body, #map1, #map2, #myButton {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+	</style>
+	</head>
+	<body class="claro">
+		<div data-dojo-type="dijit/layout/BorderContainer" style="width: 100%; height: 100%;">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">Top pane</div>
+		<div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="region:'leading'">
+			 <div data-dojo-type="dijit/layout/AccordionPane" title="pane #1">accordion pane #1
+			 <p>
+			 hallo
+			 <hr>
+			 </div>
+			 <div data-dojo-type="dijit/layout/AccordionPane" title="pane #2">accordion pane #2</div>
+			 <div data-dojo-type="dijit/layout/AccordionPane" title="pane #3">accordion pane #3</div>
+		</div>
+		<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center'">
+			 <div data-dojo-type="dijit/layout/ContentPane" title="tab #1">
+			     <div id='map1'></div>
+			 </div>
+			 <div data-dojo-type="dijit/layout/ContentPane" title="tab #2">
+			     <div id='map2'></div>
+			 </div>
+		</div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'">Trailing pane
+			<div id='myButton'></div>		
+		</div>
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'">Bottom pane</div>
+		</div>
+	<script>
+	require(["dojo/ready", "dojo/parser"], function (ready, Parser) {
+            ready(function () {
+                    var map1 = new OpenLayers.Map({
+                        div:'map1',
+                        displayProjection:new OpenLayers.Projection('EPSG:4326'),
+                        projection:new OpenLayers.Projection('EPSG:3857')
+					});
+                    var map2 = new OpenLayers.Map({
+                        div:'map2',
+                        displayProjection:new OpenLayers.Projection('EPSG:4326'),
+                        projection:new OpenLayers.Projection('EPSG:3857')					
+                    });
+                    map1.addLayer(
+                        new OpenLayers.Layer.OSM("OpenCycleMap", ['http://tile.thunderforest.com/cycle/${z}/${x}/${y}.png'])
+                    );
+                    map1.setCenter(
+                        new OpenLayers.LonLat(581044,6720916),
+                        6
+                    );
+                    map2.addLayer(
+                        new OpenLayers.Layer.OSM()
+                    );
+                    map2.setCenter(
+                        new OpenLayers.LonLat(581044,6720916),
+                        2
+                    );
+				
+            });
+        });
+		require(["dijit/form/Button", "dijit/Dialog"], function(Button, Dialog){
+			var myButton = new Button({
+					label: "Click Me!",
+					id: "myButton"
+				}, "myButton"),
+				someDialog = new Dialog({
+					title: "Hello World!",
+					content: "<p>I am a dialog. That makes me happy.</p>"
+				}, "someDialog");
+		 
+			myButton.on("click", function(){
+				someDialog.show();
+			});
+		 
+			myButton.startup();
+			someDialog.startup();
+		});
+	</script>
+	</body>
+</html>
