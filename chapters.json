@@ -8,8 +8,9 @@
         ]
     },
     {
-        "name": "Dojo 2 (?)",
-        "recipes": [      
+        "name": "Dojo & OL map controls",
+        "recipes": [
+		    {"name": "opacity slider reproduced from cookbook", "url": "ex7.html"}
         ]
     }
 ]

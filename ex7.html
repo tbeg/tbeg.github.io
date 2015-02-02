@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>TBEG ContentPane Layout</title>
+	<style type="text/css">     
+        html, body, #main, #ch2_opacity {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="../../js/OpenLayers-2.12/OpenLayers.js"></script>
+    <script type="text/javascript">
+        require(["dijit/form/HorizontalSlider","dijit/form/HorizontalRule","dijit/form/HorizontalRuleLabels","dojo/ready"])
+		// Create the map using the specified DOM element
+		var map = new OpenLayers.Map("ch2_opacity");
+		
+		// Add a WMS layer
+		var wms = new OpenLayers.Layer.WMS("OpenLayers WMS Basic", "http://vmap0.tiles.osgeo.org/wms/vmap0",
+		{
+			layers: 'basic'
+		});
+		map.addLayer(wms);  
+		
+		// Add coast line layer
+		var wms2 = new OpenLayers.Layer.WMS("Coast Line", "http://vmap0.tiles.osgeo.org/wms/vmap0",
+		{
+			layers: 'coastline_01,coastline_02'
+		},
+		{
+			isBaseLayer: false
+		});
+		map.addLayer(wms2); 
+		
+		map.addControl(new OpenLayers.Control.LayerSwitcher());
+		
+		// Center map view
+		map.setCenter(new OpenLayers.LonLat(0,0), 3);
+		
+		function opacity(value) {
+			wms2.setOpacity(value/100);
+		}
+    </script>
+</head>
+<body>
+	<div dojoType="dijit.layout.BorderContainer" design="headline"  id="main">
+        <div dojoType="dijit.layout.ContentPane" region="top" 
+            style="background-color: #b39b86; height: 10%;">
+            <div data-dojo-type="dijit.form.HorizontalSlider" 
+                 data-dojo-props="value:100, minimum:0, maximum:100, intermediateChanges:true, showButtons:false" 
+                 style="width:300px;" onChange="opacity">
+                <div data-dojo-type="dijit.form.HorizontalRule"
+                     data-dojo-props="count:11, container:'bottomDecoration'" style="height:5px;"></div>
+                <ol data-dojo-type="dijit.form.HorizontalRuleLabels" 
+                    data-dojo-props="container:'bottomDecoration'" style="height:1em;font-size:75%;color:gray;">
+                    <li>0%</li>
+                    <li>50%</li>
+                    <li>100%</li>
+                </ol>
+            </div>          
+        </div>
+        <div dojoType="dijit.layout.ContentPane" region="left"  
+            splitter="true" style="background-color: #acb386; width: 100px;">
+          
+        </div>        
+        <div id="ch2_opacity" style="width: 100%; height: 100%;" dojoType="dijit.layout.ContentPane" region="center" 
+            style="background-color: #f5ffbf; padding: 0px;">            
+        </div>        
+        <div dojoType="dijit.layout.ContentPane" region="right" 
+            style="background-color: #acb386; width: 100px;" splitter="true">
+          
+        </div>
+        <div dojoType="dijit.layout.ContentPane" region="bottom" 
+            style="background-color: #b39b86; height: 50px;" splitter="true">
+          
+        </div>
+    </div>
+</body>
+</html>

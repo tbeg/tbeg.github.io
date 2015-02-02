@@ -2,7 +2,7 @@
 <head>
 	<title>TBEG ContentPane Layout</title>
 	<style type="text/css">     
-        html, body, #main, #map {
+        html, body, #main, #map3 {
             width: 100%;
             height: 100%;
         }
@@ -12,7 +12,7 @@
         require(['dojo/ready'], function (ready) {
             ready(function () {
 				var map = new OpenLayers.Map({
-					div:'map',
+					div:'map3',
 					displayProjection:new OpenLayers.Projection('EPSG:4326'),
 					projection:new OpenLayers.Projection('EPSG:900913')
 				});
@@ -20,8 +20,8 @@
 					new OpenLayers.Layer.OSM()
 				);
 				map.setCenter(
-					new OpenLayers.LonLat(0, 0),
-					2
+					new OpenLayers.LonLat(581044,6720916),
+					8
 				);
             });
         });
@@ -37,7 +37,7 @@
             splitter="true" style="background-color: #acb386; width: 100px;">
           
         </div>        
-        <div id="map" dojoType="dijit.layout.ContentPane" region="center" 
+        <div id="map3" dojoType="dijit.layout.ContentPane" region="center" 
             style="background-color: #f5ffbf; padding: 0px;">            
         </div>        
         <div dojoType="dijit.layout.ContentPane" region="right" 
