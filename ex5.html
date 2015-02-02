@@ -1,36 +1,33 @@
 <html>
 <head>
 	<title>TBEG ContentPane Layout</title>
-	<style type="text/css">
-       
-        html, body, #main, #map {	
+	<style type="text/css">     
+        html, body, #main, #map {
             width: 100%;
             height: 100%;
         }
     </style>
-	<script type="text/javascript">
-		var djConfig = { parseOnLoad: true };
-    </script>
     <script type="text/javascript" src="../../js/OpenLayers-2.12/OpenLayers.js"></script>
     <script type="text/javascript">
-        dojo.require("dojo.parser");
-        dojo.require("dijit.layout.BorderContainer");
-        dojo.require("dijit.layout.ContentPane");
-        function init() {            
-                var map = new OpenLayers.Map("map");
-                
-                // Layers
-                var osm = new OpenLayers.Layer.OSM("OpenStreetMap");
-             
-                map.addLayers([osm]);
-                
-                // Center the map viewport
-                map.setCenter(new OpenLayers.LonLat(581044,6720916), 8);    
-        }
-        dojo.addOnLoad(init);
+        require(['dojo/ready'], function (ready) {
+            ready(function () {
+				var map = new OpenLayers.Map({
+					div:'map',
+					displayProjection:new OpenLayers.Projection('EPSG:4326'),
+					projection:new OpenLayers.Projection('EPSG:900913')
+				});
+				map.addLayer(
+					new OpenLayers.Layer.OSM()
+				);
+				map.setCenter(
+					new OpenLayers.LonLat(0, 0),
+					2
+				);
+            });
+        });
     </script>
 </head>
-<body class="claro">
+<body>
 	<div dojoType="dijit.layout.BorderContainer" design="headline"  id="main">
         <div dojoType="dijit.layout.ContentPane" region="top" 
             style="background-color: #b39b86; height: 10%;">
