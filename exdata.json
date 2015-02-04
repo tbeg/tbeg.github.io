@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Gelderland",
+		"url1": "gelderland1.html",
+		"url2": "exdata.json",
+        "gemeentes": [
+            {"name": "Nijmegen", "aantal": "10"},
+			{"name": "Beuningen", "aantal": "20"},
+			{"name": "Westervoort", "aantal": "5"}
+        ]
+    },
+    {
+        "name": "Brabant",
+		"url1": "chart01.html",
+		"url2": "exdata.json",
+        "gemeentes": [
+		{"name": "Den Bosch", "aantal": "8"},
+		{"name": "Eindhoven", "aantal": "6"},
+		{"name": "Breda", "aantal": "3"}
+        ]
+    },
+    {
+        "name": "Overijssel",
+		"url1": "ch03_kml.html",
+		"url2": "exdata.json",
+        "gemeentes": [
+		{"name": "Balkbrug", "aantal": "8"},
+		{"name": "Zwolle", "aantal": "18"},
+		{"name": "Almelo", "aantal": "27"}
+        ]
+    }
+]

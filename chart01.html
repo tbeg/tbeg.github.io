@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC -//W3C//DTD HTML 4.01//ENhttp://www.w3.org/TR/html4/strict.dtd> 
+<html xmlns:html="http://www.w3.org/1999/xhtml"> 
+  <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta> 
+  <title>Dojo Layout</title> 
+   <style> 
+     body, html { width:100%; height:100%; margin:0; padding:0; } 
+   </style>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/claro/claro.css"/>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/claro/document.css"/>
+	<script>
+	require([
+		 // Require the basic chart class
+		"dojox/charting/Chart",
+	 
+		// Require the theme of our choosing
+		"dojox/charting/themes/MiamiNice",
+	 
+		// Charting plugins:
+	 
+		//  We want to plot Columns
+		"dojox/charting/plot2d/Columns",
+	 
+		//  We want to use Markers
+		"dojox/charting/plot2d/Markers",
+	 
+		//  We'll use default x/y axes
+		"dojox/charting/axis2d/Default",
+	 
+		// Wait until the DOM is ready
+		"dojo/domReady!"
+	], function(Chart, theme) {
+	 
+		// Define the data
+		var chartData = [10000,9200,11811,12000,7662,13887,14200,12222,12000,10009,11288,12099];
+	 
+		// Create the chart within it's "holding" node
+		var chart = new Chart("chartNode");
+	 
+		// Set the theme
+		chart.setTheme(theme);
+	 
+		// Add the only/default plot
+		chart.addPlot("default", {
+			type: "Columns",
+			markers: true,
+			gap: 5
+		});
+	 
+		// Add axes
+		chart.addAxis("x");
+		chart.addAxis("y", { vertical: true, fixLower: "major", fixUpper: "major" });
+	 
+		// Add the series of data
+		chart.addSeries("Monthly Sales",chartData);
+	 
+		// Render the chart!
+		chart.render();
+	 
+	});
+</script>
+  </head> 
+  <body class="claro">
+	<div data-dojo-type='dijit/layout/ContentPane' data-dojo-props='region:"center"'>
+		<div id='chartNode'></div>
+	</div>  
+  </body> 
+</html>

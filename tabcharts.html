@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Een tab per provincie met barchart gemeentes; data json url</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<style type='text/css'>
+			html, body, #navMenu, #main, #chartNode {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+        <!-- Dojo -->
+        <script type="text/javascript">
+            // Define some Dojo configuration
+            var dojoConfig = {
+                async: true,
+                parseOnLoad: true,
+                idDebug: true
+            };
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js"></script>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/claro/claro.css"/>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/claro/document.css"/>
+
+        <!-- Application -->
+		<script type="text/javascript" src="../../js/OpenLayers-2.12/OpenLayers.js"></script>
+		<script src="appcharts.js"></script>
+    </head>
+    <body class="claro">
+
+		<div data-dojo-type="dijit/layout/BorderContainer" id="main">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+			
+                <div data-dojo-type="dijit/MenuBar" id="navMenu">
+                    <div id="about" data-dojo-type="dijit/MenuBarItem">
+                                About
+                                <script type="dojo/method" data-dojo-event="onClick" data-dojo-args="evt">
+                                    aboutDialog.show();
+                                </script>
+                    </div>
+                </div>
+			
+			</div>
+			
+		<div id="receiptTabs" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center'">
+
+
+        <!-- About dialog -->
+        <div data-dojo-type="dijit/Dialog" data-dojo-id="aboutDialog" title="Hacked By T.F. van den Berg...All credits got to:">
+            <div class="dijitDialogPaneContentArea">
+                <p>
+                    <strong>Version:</strong> 1.1 <br/>
+                    <strong>Author:</strong> Antonio Santiago<br/>
+					<strong>fiddled with by:</strong> T.F. van den Berg
+                </p>
+                <p>
+                    These are the recipes of the book <a href="http://www.packtpub.com/openlayers-create-gis-web-applications-cookbook/book" target="_blank">OpenLayers Cookbook</a> 
+                    from <a href="http://www.packtpub.com" target="_blank">PacktPublusing</a>.
+                </p>
+            </div>
+
+            <div class="dijitDialogPaneActionBar">
+                <button data-dojo-type="dijit/form/Button">Close
+                    <script type="dojo/method" data-dojo-event="onClick" data-dojo-args="evt">
+                        aboutDialog.hide();
+                    </script>
+                </button>
+            </div>
+
+        </div>
+</body>
+
+</html>

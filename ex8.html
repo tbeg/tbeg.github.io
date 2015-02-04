@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>TBEG Chart</title>
+	<style type="text/css">     
+        html, body, #testChart {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+		dojo.require("dojo.data.ItemFileWriteStore");
+		dojo.require('dojox.charting.Chart2D');
+		dojo.require('dojox.charting.widget.Chart2D');
+		dojo.require('dojox.charting.themes.PlotKit.blue');
+		dojo.require('dojox.charting.plot2d.Columns');
+		dojo.require('dojox.charting.DataSeries');
+
+		dojo.ready(function() {
+			var data = {"identifier":"MyMonth","label":"MyMonth","items":[{"MyAmount":"98498.67","MyMonth":"1"},{"MyAmount":"114384.10","MyMonth":"2"},{"MyAmount":"125307.86","MyMonth":"3"},{"MyAmount":"87534.38","MyMonth":"4"},{"MyAmount":"90376.60","MyMonth":"5"},{"MyAmount":"96233.60","MyMonth":"6"},{"MyAmount":"112824.29","MyMonth":"7"},{"MyAmount":"119593.06","MyMonth":"8"},{"MyAmount":"95691.64","MyMonth":"9"}]};
+
+			var mystore= new dojo.data.ItemFileWriteStore({data: data});
+
+			var chart1 = new dojox.charting.Chart2D('testChart').
+				setTheme(dojox.charting.themes.PlotKit.blue).
+				addAxis('x', {min: 0, max: 12}).
+				addAxis('y', { vertical: true, min: 1}).
+				addPlot('default', {type: 'Columns'}). 
+				addSeries("My Month", new dojox.charting.DataSeries(mystore, {query:{}}, "MyMonth")).
+				render();
+		});
+</head>
+<body>
+	<div dojoType="dijit.layout.BorderContainer" design="headline"  id="mainborder">
+        <div dojoType="dijit.layout.ContentPane" region="top" 
+            style="background-color: #b39b86; height: 10%;">         
+        </div>
+        <div dojoType="dijit.layout.ContentPane" region="left"  
+            splitter="true" style="background-color: #acb386; width: 100px;">
+          
+        </div>        
+        <div id="testChart" style="width: 100%; height: 100%;" dojoType="dijit.layout.ContentPane" region="center" 
+            style="background-color: #f5ffbf; padding: 0px;">            
+        </div>        
+        <div dojoType="dijit.layout.ContentPane" region="right" 
+            style="background-color: #acb386; width: 100px;" splitter="true">
+          
+        </div>
+        <div dojoType="dijit.layout.ContentPane" region="bottom" 
+            style="background-color: #b39b86; height: 50px;" splitter="true">
+          
+        </div>
+    </div>
+</body>
+</html>
