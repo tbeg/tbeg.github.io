@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Example 16</title>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="./js/dojo/dgrid/css/dgrid.css">
+	<link rel="stylesheet" href="./js/dojo/dgrid/css/skins/claro.css">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+</head>
+
+<style>
+    html, body { 
+      height: 100%; 
+      width: 100%; 
+      margin: 0; 
+      padding: 0; 
+      overflow: hidden;
+    }
+    container { 
+      height: 100%; 
+      visibility: hidden;
+    }
+    #bottomPane { height: 40%; }
+    #grid { height: 100%; }
+    #map {height:60%;}
+    .dgrid { border: none; }
+    .field-id { cursor: pointer; }
+</style>
+
+<body>
+  	<div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'center'"></div>
+    <div id="bottomPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'bottom'"> 
+    	<div id="grid"></div>
+  	</div>
+</body>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<!-- load Dojo -->
+<script src="./js/dojo/dojoConfig.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo/dojo.js"></script>
+
+<script>
+		require([
+            'dojo/_base/declare', 
+			'dgrid/OnDemandGrid', 
+			'dgrid/Keyboard', 
+			'dgrid/Selection', 
+			'dojo/store/Memory',
+			'dojo/_base/lang',
+			'dojo/_base/array',
+			'dojo/request',
+			'dojo/domReady!'
+        ], function (declare, Grid, Keyboard, Selection, Memory, lang, array, request) {
+
+           
+		var map = L.map('map').setView([42.775914,-81.187705], 2);
+		
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+					'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery � <a href="http://mapbox.com">Mapbox</a>',
+				id: 'examples.map-i875mjb7'
+			}).addTo(map);
+		
+		function getMarker(id)
+			{	
+				for(var i = 0; i < markers.length; i++){
+				    var item = markers[i];
+				    if (id == ","+item.id+",")
+					{
+						return item;
+					}
+				}
+				return null;
+			};
+
+		//Array hold table records
+		var records = [];
+		var markers = [];
+		var root = "./all_day.geojson";
+		request(root, {
+				data: "",
+				method: "POST",
+				handleAs: "json",
+				headers: {
+					"Content-Type": 'application/json; charset=utf-8',
+					"Accept": "application/json"
+				}
+			}).then(function (responseData) {
+
+				//console.log(responseData);
+				
+				var geojson = L.geoJson(responseData, {
+				      onEachFeature: function (f,l) {
+				        //create popup
+						var popup = "<p><b>"+f.properties.title+"</b><br>Magnitude: "+f.properties.mag+"</p>";
+						l.bindPopup(popup);
+						//store object
+						var mark = [];
+						mark.id=f.id;
+						mark.feature =f;
+						mark.content = popup;
+						markers.push(mark);
+						//store attributes
+						records.push(f.properties);	
+				      }
+				    }).addTo(map);
+
+					// Create a new constructor by mixing in the components
+					var CustomGrid = declare([ Grid, Keyboard, Selection ]);
+	
+					// Now, create an instance of our custom grid which
+					// have the features we added!
+					var grid = new CustomGrid({
+						columns: {
+			            title: "Title",
+						mag: "Magnitude",
+			        },
+						selectionMode: 'single', // for Selection; only select a single row at a time
+						cellNavigation: false // for Keyboard; allow only row-level keyboard navigation
+					}, 'grid');
+					grid.renderArray(records);
+					grid.on('dgrid-select', lang.hitch(null, logSelection, 'select'));
+					
+					function logSelection(action, event) {
+						array.forEach(event.rows, function (row) {
+							var data = row.data;
+							var m = getMarker(data.ids);
+							var popup = L.popup()
+							.setLatLng(new L.LatLng(m.feature.geometry.coordinates[1],m.feature.geometry.coordinates[0]))
+							.setContent(m.content)
+							.openOn(map);
+							
+						});
+					}
+			},
+			function (error) {
+					console.log(error);
+			});
+        });
+
+
+	</script>
+</html>
