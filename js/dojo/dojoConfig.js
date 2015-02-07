@@ -3,7 +3,7 @@ var dojoConfig;
 	var baseUrl = location.pathname.replace(/\/[^/]+$/, "/../../../example16/js/dojo/");
 	var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
 	dojoConfig = {
-		async: 1,
+		async: 0,
 		cacheBust: true,
 		// Load dgrid and its dependencies from a local copy.
 		// If we were loading everything locally, this would not
