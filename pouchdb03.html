@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+    <p>Look at the console.</p>
+    <script src="//cdn.jsdelivr.net/pouchdb/3/pouchdb.min.js"></script>
+    <script>  
+		var db = new PouchDB('dbname');
+
+		db.put({
+		  _id: 'dave@gmail.com',
+		  name: 'David',
+		  age: 68
+		});
+
+		db.changes().on('change', function() {
+		  console.log('Ch-Ch-Changes');
+		});
+    </script>
+</body>
+</html>
