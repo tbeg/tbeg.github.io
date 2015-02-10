@@ -7,7 +7,8 @@
 <body>
     <p>Look at the console.</p>
     <script src="//cdn.jsdelivr.net/pouchdb/3/pouchdb.min.js"></script>
-    <script>  
+    <script>
+		//PouchDB.plugin(require('geopouch'));
 		var db = new PouchDB('p04');
 
 		db.put({
